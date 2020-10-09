@@ -7,7 +7,7 @@ import logging
 
 
 class WeightedClassifier(object):
-    def __init__(self, model_name: str, hyper_dict: dict, device_name: str = "cuda"):
+    def __init__(self, model_name: str, hyper_dict: dict, device_name: str = "cuda") -> None:
         assert torch.cuda.is_available(), "cuda required"
         self.device = torch.device(device_name)
         self.device_name = device_name
@@ -27,7 +27,7 @@ class WeightedClassifier(object):
         self.model.cuda(self.device_name)
         self.check_count = 0
 
-    def tokenize_encode(self, text: str):
+    def tokenize_encode(self, text: str) -> list:
         tokens = self.tokenizer.tokenize(text)
         encoded_tokens = self.tokenizer.convert_tokens_to_ids(tokens)
         return encoded_tokens
@@ -46,15 +46,26 @@ class WeightedClassifier(object):
 
         return out_tensor
 
+    @staticmethod
+    def add_special_token(sentence, index, special_token="[MASK]"):
+        split_sent = sentence.split()
+        split_sent.insert(special_token, index)
+        return " ".join(split_sent)
+
     def read_data(self, df: pd.DataFrame, for_test: bool = False):
         input_ids = []
         token_type_ids = []
 
         count_overlong = 0
-        for first_sentence, second_sentence in zip(df.sent_1.values, df.sent_2.values):
+        for first_sentence, second_sentence, first_index, second_index in zip(df.sent_1.values, df.sent_2.values,
+                                                                              df.index_1.values, df.index_2.values):
 
             assert type(first_sentence) == str,  f"first sentence not string: {first_sentence} | {second_sentence}"
             assert type(second_sentence) == str, f"second sentence not string: {first_sentence} | {second_sentence}"
+
+            if self.hyper_dict.add_special:
+                first_sentence = self.add_special_token(first_sentence, first_index)
+                second_sentence = self.add_special_token(second_sentence, second_index)
 
             first_ids = self.tokenize_encode("[CLS] " + first_sentence + " [SEP]")
             first_types = [0 for _ in first_ids]
