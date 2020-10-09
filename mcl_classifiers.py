@@ -47,10 +47,15 @@ class WeightedClassifier(object):
         return out_tensor
 
     @staticmethod
-    def add_special_token(sentence, index, special_token="[MASK]"):
+    def add_special_token(sentence: str, indexes: list, special_token: str = "[MASK]"):
         split_sent = sentence.split()
-        split_sent.insert(special_token, index)
+        split_sent.insert(indexes[0], special_token)
+        split_sent.insert(indexes[-1]+2, special_token)
         return " ".join(split_sent)
+
+    @staticmethod
+    def convert_indexes(index: str) -> list:
+        return [int(single_index) for single_index in index.split("-")]
 
     def read_data(self, df: pd.DataFrame, for_test: bool = False):
         input_ids = []
@@ -64,8 +69,8 @@ class WeightedClassifier(object):
             assert type(second_sentence) == str, f"second sentence not string: {first_sentence} | {second_sentence}"
 
             if self.hyper_dict["add_special"]:
-                first_sentence = self.add_special_token(first_sentence, int(first_index))
-                second_sentence = self.add_special_token(second_sentence, int(second_index))
+                first_sentence = self.add_special_token(first_sentence, self.convert_indexes(first_index))
+                second_sentence = self.add_special_token(second_sentence, self.convert_indexes(second_index))
 
             first_ids = self.tokenize_encode("[CLS] " + first_sentence + " [SEP]")
             first_types = [0 for _ in first_ids]
