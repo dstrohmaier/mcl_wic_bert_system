@@ -64,8 +64,8 @@ class WeightedClassifier(object):
             assert type(second_sentence) == str, f"second sentence not string: {first_sentence} | {second_sentence}"
 
             if self.hyper_dict["add_special"]:
-                first_sentence = self.add_special_token(first_sentence, first_index)
-                second_sentence = self.add_special_token(second_sentence, second_index)
+                first_sentence = self.add_special_token(first_sentence, int(first_index))
+                second_sentence = self.add_special_token(second_sentence, int(second_index))
 
             first_ids = self.tokenize_encode("[CLS] " + first_sentence + " [SEP]")
             first_types = [0 for _ in first_ids]
