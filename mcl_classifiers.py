@@ -27,7 +27,7 @@ class WeightedClassifier(object):
         self.model.cuda(self.device_name)
         self.check_count = 0
 
-    def tokenize_encode(self, text):
+    def tokenize_encode(self, text: str):
         tokens = self.tokenizer.tokenize(text)
         encoded_tokens = self.tokenizer.convert_tokens_to_ids(tokens)
         return encoded_tokens
@@ -58,7 +58,7 @@ class WeightedClassifier(object):
 
             first_ids = self.tokenize_encode("[CLS] " + first_sentence + " [SEP]")
             first_types = [0 for _ in first_ids]
-            second_ids = self.tokenize_encode(second_sentence + " [EOS]")
+            second_ids = self.tokenize_encode(second_sentence + " [SEP]")
             second_types = [1 for _ in second_ids]
 
             if len(first_ids+second_ids) > self.hyper_dict["max_len"]:

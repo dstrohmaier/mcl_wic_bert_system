@@ -6,14 +6,14 @@ from hyper_tuning import log_dict
 
 selected_hyperdicts = [
     {
-        "batch_size": 10,
+        "batch_size": 5,
         "decay_rate": 0.01,
-        "epochs": 5,
+        "epochs": 20,
         "learning_rate": 1e-05,
         "max_grad_norm": 1,
         "max_len": 130,
         "pos_weight": [1.0, 1.0, 1.0],
-        "warmup_steps": 100
+        "warmup_steps": 50
     }
 ]
 
