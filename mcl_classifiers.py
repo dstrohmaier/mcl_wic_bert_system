@@ -63,7 +63,7 @@ class WeightedClassifier(object):
             assert type(first_sentence) == str,  f"first sentence not string: {first_sentence} | {second_sentence}"
             assert type(second_sentence) == str, f"second sentence not string: {first_sentence} | {second_sentence}"
 
-            if self.hyper_dict.add_special:
+            if self.hyper_dict["add_special"]:
                 first_sentence = self.add_special_token(first_sentence, first_index)
                 second_sentence = self.add_special_token(second_sentence, second_index)
 

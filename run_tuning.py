@@ -38,4 +38,5 @@ def run_multilingual(selective, split_data_path, identifier):
 if __name__ == '__main__':
     main_identifier = datetime.datetime.now(datetime.timezone.utc).timestamp()
     logging.basicConfig(filename=f"/home/ds858/mcl/base_system/runs/search_{main_identifier}.log", level=logging.DEBUG)
-    run_multilingual(selective=True, split_data_path="/home/ds858/mcl/base_system/data/split/", identifier=main_identifier)
+    run_multilingual(selective=True, split_data_path="/home/ds858/mcl/base_system/data/split/",
+                     identifier=main_identifier)
