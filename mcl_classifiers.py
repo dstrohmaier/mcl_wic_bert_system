@@ -47,7 +47,7 @@ class WeightedClassifier(object):
         return out_tensor
 
     @staticmethod
-    def add_special_token(sentence: str, indexes: list, special_token: str = "[MASK]"):
+    def add_special_token(sentence: str, indexes: list, special_token: str = "[UNK]"):
         split_sent = sentence.split()
         split_sent.insert(indexes[0], special_token)
         split_sent.insert(indexes[-1]+2, special_token)
