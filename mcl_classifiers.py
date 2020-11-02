@@ -17,7 +17,6 @@ class WeightedClassifier(object):
         self.label_dict = {
             "F": 0,
             "T": 1,
-            "R": 2
         }
         logging.info(f"label_dict: {self.label_dict}")
         self.inv_label_dict = {value: key for key, value in self.label_dict.items()}
@@ -115,7 +114,7 @@ class WeightedClassifier(object):
 
     def convert_labels(self, label_tensor):
         converted_labels = []
-        base = [0, 0, 0]
+        base = [0, 0]
         for label in label_tensor:
             converted_labels.append(base[:label] + [1] + base[label + 1:])
 
@@ -149,6 +148,8 @@ class WeightedClassifier(object):
         batch = tuple(t.to(self.device) for t in batch)
         b_input_ids, b_type_ids, b_input_mask, b_labels = batch
         assert self.check_seg_ids(b_type_ids), "Segment IDs not in correct format"
+
+        logging.debug(f"Shape of batch: {b_input_ids.size()}")
 
         optimizer.zero_grad()
         outputs = self.model(b_input_ids, token_type_ids=b_type_ids, attention_mask=b_input_mask)

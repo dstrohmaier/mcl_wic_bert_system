@@ -21,7 +21,7 @@ def load_df_tuple(path, num_splits=5):
     return train_dfs, valid_dfs
 
 
-def run_multilingual(selective, split_data_path, identifier):
+def run_multilingual(selective, split_data_path, output_directory, identifier):
     model_name = "bert-base-multilingual-cased"
 
     if selective:
@@ -31,12 +31,35 @@ def run_multilingual(selective, split_data_path, identifier):
 
     df_tuple = load_df_tuple(split_data_path)
 
-    search_parameter_list(model_name=model_name, df_tuple=df_tuple, output_directory="/home/ds858/mcl/base_system/runs/",
+    search_parameter_list(model_name=model_name, df_tuple=df_tuple, output_directory=output_directory,
                           hyperdicts_list=hyperdicts_list, identifier=identifier)
 
 
-if __name__ == '__main__':
+def run_trial_data():
+    runs_directory = "/home/ds858/mcl/attention_system/runs_trial/"
+    if not os.path.isdir(runs_directory):
+        os.makedirs(runs_directory)
+
     main_identifier = datetime.datetime.now(datetime.timezone.utc).timestamp()
-    logging.basicConfig(filename=f"/home/ds858/mcl/base_system/runs/search_{main_identifier}.log", level=logging.DEBUG)
-    run_multilingual(selective=True, split_data_path="/home/ds858/mcl/base_system/data/split/",
-                     identifier=main_identifier)
+
+    logging.basicConfig(filename=runs_directory + f"search_{main_identifier}.log", level=logging.DEBUG)
+
+    run_multilingual(selective=False, split_data_path="/home/ds858/mcl/base_system/data/split/",
+                     output_directory="/home/ds858/mcl/base_system/runs_trial/", identifier=main_identifier)
+
+
+def run_training_data():
+    runs_directory = "/home/ds858/mcl/attention_system/runs_training/"
+    if not os.path.isdir(runs_directory):
+        os.makedirs(runs_directory)
+
+    main_identifier = datetime.datetime.now(datetime.timezone.utc).timestamp()
+
+    logging.basicConfig(filename=runs_directory + f"search_{main_identifier}.log", level=logging.DEBUG)
+
+    run_multilingual(selective=False, split_data_path="/home/ds858/mcl/attention_system/data/split/",
+                     output_directory="/home/ds858/mcl/base_system/runs_training/", identifier=main_identifier)
+
+
+if __name__ == '__main__':
+    run_training_data()
