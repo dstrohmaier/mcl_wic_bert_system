@@ -1,3 +1,4 @@
+import os
 import logging
 import datetime
 import pandas as pd
@@ -36,7 +37,7 @@ def run_multilingual(selective, split_data_path, output_directory, identifier):
 
 
 def run_trial_data():
-    runs_directory = "/home/ds858/mcl/attention_system/runs_trial/"
+    runs_directory = "/home/ds858/mcl/base_system/runs_trial/"
     if not os.path.isdir(runs_directory):
         os.makedirs(runs_directory)
 
@@ -49,7 +50,7 @@ def run_trial_data():
 
 
 def run_training_data():
-    runs_directory = "/home/ds858/mcl/attention_system/runs_training/"
+    runs_directory = "/home/ds858/mcl/base_system/runs_training/"
     if not os.path.isdir(runs_directory):
         os.makedirs(runs_directory)
 
