@@ -114,7 +114,7 @@ class WeightedClassifier(object):
 
     def convert_labels(self, label_tensor):
         converted_labels = []
-        base = [0, 0]
+        base = [0 for _ in self.label_dict]
         for label in label_tensor:
             converted_labels.append(base[:label] + [1] + base[label + 1:])
 

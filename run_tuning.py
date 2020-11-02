@@ -28,7 +28,7 @@ def run_multilingual(selective, split_data_path, output_directory, identifier):
     if selective:
         hyperdicts_list = selected_hyperdicts
     else:
-        hyperdicts_list = create_hyperdicts_list(num_draws=1)
+        hyperdicts_list = create_hyperdicts_list(num_draws=20)
 
     df_tuple = load_df_tuple(split_data_path)
 
