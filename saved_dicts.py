@@ -12,7 +12,7 @@ selected_hyperdicts = [
         "learning_rate": 1e-05,
         "max_grad_norm": 1,
         "max_len": 130,
-        "pos_weight": [1.0, 1.0, 1.0],
+        "pos_weight": [1.0, 1.0],
         "warmup_steps": 50,
         "add_special": True
     }
@@ -34,7 +34,7 @@ standard_space = {
     "learning_rate_space": [2e-5, 1e-5, 9e-6, 5e-6, 1e-6],
     "max_grad_norm_space": [1],
     "warmup_steps_space": [80, 90, 100, 110],
-    "pos_weight_space": [add_list(pro, [0.5, 0.5, 0.5]) for pro in product(standard_proportion_space, repeat=3)],
+    "pos_weight_space": [add_list(pro, [0.5, 0.5]) for pro in product(standard_proportion_space, repeat=3)],
     "add_special_space": [True, False]
 }
 
