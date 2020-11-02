@@ -30,7 +30,7 @@ standard_space = {
     "max_len_space":  list(range(90, 201, 10)),
     "batch_size_space": list(range(8, 65, 8)),
     "decay_rate_space": [0.005, 0.01],
-    "epochs_space": [3, 4, 5],
+    "epochs_space": [3, 4, 5, 6, 7],
     "learning_rate_space": [2e-5, 1e-5, 9e-6, 5e-6, 1e-6],
     "max_grad_norm_space": [1],
     "warmup_steps_space": [80, 90, 100, 110],
